@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shakib Casino Royal Spin</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #0f0f1a;
+      color: #fff;
+      padding: 15px;
+      margin: 0;
+    }
+    h1 {
+      color: #d4af37;
+      margin-bottom: 5px;
+    }
+    .subtitle {
+      color: #aaa;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .coins {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #f1c40f;
+      background: #1a1a2e;
+      padding: 10px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+    .wheel {
+      width: 180px;
+      height: 180px;
+      border: 6px solid #d4af37;
+      border-radius: 50%;
+      margin: 15px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      background: #16213e;
+      transition: transform 3s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+    }
+    button {
+      padding: 12px 25px;
+      font-size: 16px;
+      font-weight: bold;
+      background: #d4af37;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background: #555;
+      color: #aaa;
+    }
+    .deposit-section {
+      max-width: 400px;
+      margin: 30px auto;
+      background: #141421;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid #d4af37;
+      text-align: left;
+    }
+    .deposit-section h3 {
+      color: #d4af37;
+      text-align: center;
+      margin-top: 0;
+    }
+    .input-group {
+      margin-bottom: 12px;
+    }
+    .input-group label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+    .input-group input, .input-group select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #444;
+      background: #0a0a12;
+      color: #fff;
+      box-sizing: border-box;
+    }
+    .submit-deposit {
+      width: 100%;
+      padding: 10px;
+      background: #27ae60;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .note {
+      font-size: 12px;
+      color: #f39c12;
+      background: #2a2a3d;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Shakib Casino Royal Spin</h1>
+  <div class="subtitle">পার্সোনাল প্র্যাকটিস ও বিনোদনমূলক প্ল্যাটফর্ম</div>
+
+  <div class="coins">ভার্চুয়াল ব্যালেন্স: <span id="balance">100</span> 🪙</div>
+
+  <div class="wheel" id="wheel">🦁🎰</div>
+
+  <br>
+  <button id="spinBtn" onclick="spinWheel()">স্পিন করুন (১০ পয়েন্ট)</button>
+
+  <p id="message" style="margin-top: 15px; font-weight: bold;"></p>
+
+  <!-- ম্যানুয়াল ডিপোজিট সেকশন (পার্সোনাল বিকাশ/নগদ) -->
+  <div class="deposit-section">
+    <h3>ডিপোজিট ফর্ম (পার্সোনাল)</h3>
+    <div class="note">
+      • বিকাশ পার্সোনাল: <b>01743939949</b><br>
+      • নগদ পার্সোনাল: <b>01998412871</b><br>
+      টাকা সেন্ড করার পর নিচের ফর্মটি পূরণ করুন।
+    </div>
+    
+    <form onsubmit="handleDeposit(event)">
+      <div class="input-group">
+        <label>মেথড সিলেক্ট করুন:</label>
+        <select id="payMethod">
+          <option value="bkash">বিকাশ পার্সোনাল</option>
+          <option value="nagad">নগদ পার্সোনাল</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label>টাকার পরিমাণ (BDT):</label>
+        <input type="number" id="depAmount" placeholder="যেমন: 500" required>
+      </div>
+
+      <div class="input-group">
+        <label>যে নম্বর থেকে পাঠিয়েছেন:</label>
+        <input type="text" id="depPhone" placeholder="017XXXXXXXX" required>
+      </div>
+
+      <div class="input-group">
+        <label>Transaction ID (TrxID):</label>
+        <input type="text" id="depTrx" placeholder="যেমন: 9N7A6D5F" required>
+      </div>
+
+      <button type="submit" class="submit-deposit">ডিপোজিট রিকোয়েস্ট পাঠান</button>
+    </form>
+    <p id="depMsg" style="font-size: 13px; margin-top: 10px; text-align: center; color: #27ae60;"></p>
+  </div>
+
+  <script>
+    let balance = 100;
+    const rewards = [0, 20, 50, 0, 100, 5, 0, 30];
+
+    function spinWheel() {
+      if (balance < 10) {
+        document.getElementById('message').innerText = "আপনার পর্যাপ্ত ভার্চুয়াল পয়েন্ট নেই!";
+        return;
+      }
+
+      balance -= 10;
+      document.getElementById('balance').innerText = balance;
+      document.getElementById('spinBtn').disabled = true;
+      document.getElementById('message').innerText = "ঘুরছে...";
+
+      const wheel = document.getElementById('wheel');
+      const randomRot = 1440 + Math.floor(Math.random() * 360);
+      wheel.style.transform = `rotate(${randomRot}deg)`;
+
+      setTimeout(() => {
+        const randomIndex = Math.floor(Math.random() * rewards.length);
+        const winAmount = rewards[randomIndex];
+        balance += winAmount;
+
+        document.getElementById('balance').innerText = balance;
+        document.getElementById('spinBtn').disabled = false;
+
+        if (winAmount > 0) {
+          document.getElementById('message').innerText = `অভিনন্দন! আপনি জিতেছেন ${winAmount} পয়েন্ট! 🎉`;
+        } else {
+          document.getElementById('message').innerText = "ইশ! এবার কিছু জিততে পারেননি। আবার চেষ্টা করুন!";
+        }
+      }, 3000);
+    }
+
+    function handleDeposit(e) {
+      e.preventDefault();
+      const method = document.getElementById('payMethod').value;
+      const amount = document.getElementById('depAmount').value;
+      const trx = document.getElementById('depTrx').value;
+
+      document.getElementById('depMsg').innerText = `✅ আপনার ${method.toUpperCase()} (${amount} BDT) রিকোয়েস্ট সফলভাবে জমা হয়েছে! TrxID: ${trx}`;
+      
+      e.target.reset();
+    }
+  </script>
+</body>
+</html>
